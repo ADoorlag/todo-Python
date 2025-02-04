@@ -1,3 +1,6 @@
+# mark tasks as incomplete
+# delete tasks
+
 import json
 
 file_name = "todo_list.json"
@@ -36,8 +39,18 @@ def create_task(tasks_dict):
     else:
         print("Task description cannot be empty.")
 
-def mark_task_complete():
-    pass
+def mark_task_complete(tasks):
+    view_tasks(tasks)
+    try:
+        task_number = int(input("Enter the number of the task to mark as complete: ").strip())
+        if task_number > 0 and task_number <= len(tasks["tasks"]):
+            tasks["tasks"][task_number - 1]["complete"] = True
+            save_tasks(tasks)
+            print("Task marked as complete.")
+        else:
+            print("Invalid task number.")
+    except:
+        print("Please enter a valid number.")
 
 def main():
     save_tasks({"tasks": [{"description": "saved task", "complete": False}]})
@@ -58,7 +71,7 @@ def main():
         elif choice == "2":
             create_task(tasks)
         elif choice == "3":
-            mark_task_complete()
+            mark_task_complete(tasks)
         elif choice == "4":
             save_tasks(tasks)
             break
