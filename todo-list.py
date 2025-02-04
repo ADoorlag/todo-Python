@@ -53,9 +53,9 @@ def mark_task_complete(tasks):
         print("Please enter a valid number.")
 
 def main():
-    save_tasks({"tasks": [{"description": "saved task", "complete": False}]})
+    # save_tasks({"tasks": [{"description": "saved task", "complete": False}]})
     tasks = load_tasks()
-    print(tasks)
+    # print(tasks)
     
     while True:
         print("\n To-Do List Manager")
