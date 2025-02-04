@@ -1,4 +1,3 @@
-# mark tasks as incomplete
 # delete tasks
 
 import json
@@ -44,25 +43,43 @@ def mark_task_complete(tasks):
     try:
         task_number = int(input("Enter the number of the task to mark as complete: ").strip())
         if task_number > 0 and task_number <= len(tasks["tasks"]):
-            tasks["tasks"][task_number - 1]["complete"] = True
-            save_tasks(tasks)
-            print("Task marked as complete.")
+            if  tasks["tasks"][task_number - 1]["complete"]== False: 
+                tasks["tasks"][task_number - 1]["complete"] = True
+                save_tasks(tasks)
+                print("Task marked as complete.")
+            else:
+                print("Task is already marked as complete.")
+        else:
+            print("Invalid task number.")
+    except:
+        print("Please enter a valid number.")
+
+def mark_task_incomplete(tasks):
+    view_tasks(tasks)
+    try:
+        task_number = int(input("Enter the number of the task to mark as incomplete: ").strip())
+        if task_number > 0 and task_number <= len(tasks["tasks"]):
+            if tasks["tasks"][task_number - 1]["complete"] == True:
+                tasks["tasks"][task_number - 1]["complete"] = False
+                save_tasks(tasks)
+                print("Task marked as incomplete.")
+            else:
+                print("Task is already marked as incomplete.")
         else:
             print("Invalid task number.")
     except:
         print("Please enter a valid number.")
 
 def main():
-    # save_tasks({"tasks": [{"description": "saved task", "complete": False}]})
     tasks = load_tasks()
-    # print(tasks)
     
     while True:
         print("\n To-Do List Manager")
         print("1. View tasks")
         print("2. Create task")
         print("3. complete task")
-        print("4. Exit")
+        print(" 4. Mark task incomplete")
+        print("5. Exit")
         
         choice = input("Enter your choice: ").strip()
         
@@ -73,6 +90,8 @@ def main():
         elif choice == "3":
             mark_task_complete(tasks)
         elif choice == "4":
+            mark_task_incomplete(tasks)
+        elif choice == "5":
             save_tasks(tasks)
             break
         else:
