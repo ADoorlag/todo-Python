@@ -17,6 +17,7 @@ def save_tasks(tasks):
         print("Error saving tasks")
 
 def view_tasks(tasks):
+    print("")
     task_list = tasks["tasks"]
     if len(task_list) == 0:
         print("No tasks to display.")
@@ -26,11 +27,11 @@ def view_tasks(tasks):
             status = "[Completed]" if task["complete"] else "[Pending]"
             print(f"{idx + 1}. {task['description']} | {status}")
 
-def create_task(tasks):
+def create_task(tasks_dict):
     description = input("Enter task description: ").strip()
     if description:
-        tasks["tasks"].append({"description": description, "completed": False})
-        save_tasks(tasks)
+        tasks_dict["tasks"].append({"description": description, "complete": False})
+        save_tasks(tasks_dict)
         print("Task created successfully.")
     else:
         print("Task description cannot be empty.")
@@ -39,7 +40,7 @@ def mark_task_complete():
     pass
 
 def main():
-    # save_tasks({"tasks": ["saved task"]})
+    save_tasks({"tasks": [{"description": "saved task", "complete": False}]})
     tasks = load_tasks()
     print(tasks)
     
