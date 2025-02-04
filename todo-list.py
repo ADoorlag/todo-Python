@@ -1,4 +1,3 @@
-# delete tasks
 
 import json
 
@@ -69,6 +68,19 @@ def mark_task_incomplete(tasks):
             print("Invalid task number.")
     except:
         print("Please enter a valid number.")
+        
+def delete_task(tasks):
+    view_tasks(tasks)
+    try:
+        task_number = int(input("Enter the number of the task to delete: ").strip())
+        if task_number > 0 and task_number <= len(tasks["tasks"]):
+            del tasks["tasks"][task_number - 1]
+            save_tasks(tasks)
+            print("Task deleted successfully.")
+        else:
+            print("Invalid task number.")
+    except:
+        print("Please enter a valid number.")
 
 def main():
     tasks = load_tasks()
@@ -77,9 +89,10 @@ def main():
         print("\n To-Do List Manager")
         print("1. View tasks")
         print("2. Create task")
-        print("3. complete task")
-        print(" 4. Mark task incomplete")
-        print("5. Exit")
+        print("3. Complete a task")
+        print("4. Mark task incomplete")
+        print("5. Delete task")
+        print("6. Save and Exit")
         
         choice = input("Enter your choice: ").strip()
         
@@ -92,6 +105,8 @@ def main():
         elif choice == "4":
             mark_task_incomplete(tasks)
         elif choice == "5":
+            delete_task(tasks)
+        elif choice == "6":
             save_tasks(tasks)
             break
         else:
